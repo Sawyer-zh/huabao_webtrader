@@ -1,2 +1,4 @@
 requests
-selenium
+pycryptodome
+bs4
+lxml
