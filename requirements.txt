@@ -2,3 +2,6 @@ requests
 pycryptodome
 bs4
 lxml
+pandas
+pymysql
+phpserialize
