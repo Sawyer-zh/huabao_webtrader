@@ -7,6 +7,7 @@ from trader.api import TraderApi as Trader
 from trader.log import Log
 from datetime import datetime
 from strategy.sdzz.strategy import Strategy
+from trader import client
 
 
 class HeartBeat(threading.Thread):
@@ -20,10 +21,10 @@ class HeartBeat(threading.Thread):
     
     def run(self):
         while int(datetime.strftime(datetime.now(),'%H')) < 15:
+            Log.i('--heart beat--')
             ret = client.position() 
             Log.i(ret)
             time.sleep(60)
-            Log.i('--heart beat--')
         
 
 class ExecuteStrategy(threading.Thread):
@@ -39,22 +40,14 @@ class ExecuteStrategy(threading.Thread):
         """
         """
         Log.d('---准备开始执行策略---')
-        Strategy.execute()
+        #Strategy.execute()
 
 
 if __name__ == "__main__":
-    with open('config.json') as f:
-        user = json.load(f)
-    login_ret = login(user)
-    if not login_ret:
-        exit()
-    else:
-        with open('cookies.txt') as r:
-            cookies = r.readline()
-        client = Trader(cookies)
-        head_beat = HeartBeat(client)
-        head_beat.start()
-        strategy = ExecuteStrategy(client)
-        strategy.start()
+    head_beat = HeartBeat()
+    head_beat.start()
+
+    #strategy = ExecuteStrategy()
+    #strategy.start()
         
 

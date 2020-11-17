@@ -74,7 +74,7 @@ class TraderApi():
             r = i.find_all('div',class_='item')
             total_asset = r[0].get_text().strip().split('\n')[1]
             total_profit = r[1].get_text().strip().split('\n')[1]
-            today_profit = r[2].get_text().strip().split('\n')[1]
+            today_profit = r[2].get_text().strip('\n').split('\n')[-1]
             securities = r[3].get_text().strip().split('\n')[1]
             usable_money = r[4].get_text().strip().split('\n')[1]
         p = {

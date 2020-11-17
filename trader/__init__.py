@@ -4,6 +4,7 @@
 import json
 from .login import login
 from .api import TraderApi as Trader
+from .log import Log
 
 
 __author__ = 'sawyer'
@@ -20,11 +21,13 @@ class Client():
             user = json.load(f)
             login_ret = login(user)
             if not login_ret:
+                Log.i("---登录失败---")
                 exit()
             else:
                 with open('cookies.txt') as r:
                     cookies = r.readline()
                 client = Trader(cookies)
                 self.client = client
+                Log.i('---登录成功---')
 
 client = Client().client
