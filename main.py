@@ -8,6 +8,7 @@ from trader.log import Log
 from datetime import datetime
 from strategy.sdzz.strategy import Strategy
 from trader import client
+import pandas as pd
 
 
 class HeartBeat(threading.Thread):
@@ -23,7 +24,15 @@ class HeartBeat(threading.Thread):
         while int(datetime.strftime(datetime.now(),'%H')) < 15:
             Log.i('--heart beat--')
             ret = client.position() 
-            Log.i(ret)
+            df = pd.DataFrame(ret['position'])
+            # 打印持仓信息
+            Log.i("\n{}\ntotal_asset:{}\tsecurities:{}\tusable_money:{}\ttotal_profit:{}\ttoday_profit:{}".format(df,
+                ret['total_asset'],
+                ret['securities'],
+                ret['usable_money'],
+                ret['total_profit'],
+                ret['today_profit'],
+            ))
             time.sleep(60)
         
 
