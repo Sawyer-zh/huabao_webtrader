@@ -115,6 +115,24 @@ class TraderApi():
             num,
         )
 
+    def buy_fund(self, stock_name,
+                  stock_code,
+                  exchange,
+                  price,
+                  num,
+                  ):
+        """
+        买基金
+        """
+        return self.buy(
+            stock_name,
+            stock_code,
+            exchange,
+            '3',
+            price,
+            num,
+        )
+    
     def sell(self, stock_name,
              stock_code,
              exchange,
@@ -167,6 +185,24 @@ class TraderApi():
             stock_code,
             exchange,
             '4',
+            price,
+            num,
+        )
+
+    def sell_fund(self, stock_name,
+                   stock_code,
+                   exchange,
+                   price,
+                   num,
+                   ):
+        """
+        卖基金
+        """
+        return self.sell(
+            stock_name,
+            stock_code,
+            exchange,
+            '3',
             price,
             num,
         )
