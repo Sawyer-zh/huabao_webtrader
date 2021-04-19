@@ -53,8 +53,10 @@ class ExecuteStrategy(threading.Thread):
         """
         while True:
             Log.d('---准备开始执行策略---')
-            Strategy().execute()
-            time.sleep(10)
+            #Strategy().execute()
+            #client.sell_stock('苏州银行','002966','SZ','8.86',100)
+            client.sell_fund('弘盈A','160520','SZ','2.34',81)
+            time.sleep(1)
 
 
 if __name__ == "__main__":
