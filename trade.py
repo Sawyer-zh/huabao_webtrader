@@ -1,4 +1,5 @@
-from trader import client
+#!/usr/bin/env python3
+from trader import client 
 import sys
 import getopt
 
@@ -16,13 +17,16 @@ if __name__ == "__main__":
                 -c code
                 -p price
                 -n num
+                -h show this
             """)
+            exit()
         elif '-c' == opt:
             code = value
         elif '-p' == opt:
             price = value
         elif '-n' == opt:
             num = value
+
 
     df = client.position['position']
     market = df.loc[df['stock_code'] == code]['market'].values[0]
