@@ -2,6 +2,7 @@
 from trader import client 
 import sys
 import getopt
+from trader.util import quotation, get_market
 
 
 if __name__ == "__main__":
@@ -29,8 +30,16 @@ if __name__ == "__main__":
 
 
     df = client.position['position']
-    market = df.loc[df['stock_code'] == code]['market'].values[0]
-    name = df.loc[df['stock_code'] == code]['stock_name'].values[0]
+    try:
+        # 从持仓中获取
+        market = df.loc[df['stock_code'] == code]['market'].values[0]
+        name = df.loc[df['stock_code'] == code]['stock_name'].values[0]
+    except:
+        # 请求新浪接口
+        market_lower = get_market(code)
+        market = market_lower.upper()
+        name = quotation(market_lower + code)['name']
+
     if int(num) > 0:
         if code[0] in [1]:
             client.buy_bond(name, code, market, price, num)
