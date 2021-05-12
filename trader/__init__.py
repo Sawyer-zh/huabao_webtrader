@@ -11,31 +11,38 @@ from os import path
 __author__ = 'sawyer'
 __version__ = '1.0.0'
 
+
 class Client():
     """
-    交易客户端
+    交易客户端:
+    添加多个账户
     """
+    clients = {
+
+    }
+
     def __init__(self) -> None:
         """
         """
         with open('config.json') as f:
-            if path.exists('cookies.txt'): 
-                self.login_with_cookie()
-            else:
-                user = json.load(f)
-                login_ret = login(user)
-                if not login_ret:
-                    Log.i("---登录失败---")
-                    exit()
+            accounts = json.load(f)['accounts']
+            for i in range(len(accounts)):
+                user = accounts[i]
+                if path.exists("cookies_" + user['custno'] + '.txt'):
+                    self.login_with_cookie(user)
                 else:
-                    self.login_with_cookie()
-   
-    def login_with_cookie(self):
-        with open('cookies.txt') as r:
+                    login_ret = login(user)
+                    if not login_ret:
+                        Log.i("---客户:{}---登录失败".format(user['custno']))
+                    else:
+                        self.login_with_cookie(user)
+
+    def login_with_cookie(self, user):
+        with open('cookies_' + user['custno'] + '.txt') as r:
             cookies = r.readline()
             client = Trader(cookies)
-            self.client = client
-            Log.i('---登录成功---')
-    
+            self.clients[user['custno']] = client
+            Log.i('-客户:{}--登录成功---'.format(user['custno']))
 
-client = Client().client
+
+clients = Client().clients

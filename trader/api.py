@@ -244,7 +244,10 @@ class TraderApi():
             stock_code, market = t1[1].split('.')
             cost, current = r[1].get_text().strip().split('\n')
             total, usable = r[2].get_text().strip().split('\n')
-            profit, profit_percent = r[3].get_text().strip().split('\n')
+            try:
+                profit, profit_percent = r[3].get_text().strip().split('\n')
+            except:
+                profit, profit_percent = ['' , '']
             position.append(
                 {
                     'stock_name': stock_name,
