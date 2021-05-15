@@ -1,2 +1,22 @@
-# huabao_webtrader
-web trader for huabao stock，auto buy and sell by python code
+# 华宝命令行交易客户端
+利用华宝网页端的交易接口 制作的命令行交易脚本
+当前支持:登录 查看持仓 交易等 
+
+## 登录
+mv config.json.example  config.json 填好客户号密码等信息
+采用网页端模拟cookie的方式进行登录  
+cookie存放在 cookies_客户号.txt文件 当这个文件存在时候不再去调用登录接口
+如果登录过期 需要删除该文件
+
+
+## 心跳
+直接执行python3 main.py 
+通过每分钟请求持仓的接口 保证不掉线
+
+## 交易
+提供了一个命令行交易的脚本具体如下:
+./trade -a 058 -c 113599 -p 130.1 -n -1
+-a 客户号后3位
+-c 6位数的代码
+-p 价格
+-n 数量 单位是手 买是正,卖是负的
